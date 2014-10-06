@@ -39,14 +39,19 @@ class MusicQuiz {
 			this.question = q;
 			this.correct = correct;
 			// TODO | Simplify initialization
+			
+			/*
 			this.alternatives[0] = a;
 			this.alternatives[1] = b;
 			this.alternatives[2] = c;
 			this.alternatives[3] = d;
+			*/
 		}
 
 
 		public String toString() {
+			// TODO | Fix alignment
+			// TODO | Cache string (final variables)
 			return String.format("%s\n" +
 								 "A. %s\tB. %s\n" +
 								 "C. %s\tD. %s\n", this.question, this.alternatives[0], this.alternatives[1], this.alternatives[2], this.alternatives[3]);
@@ -59,6 +64,12 @@ class MusicQuiz {
 		}
 
 
+		public String answer() {
+			// Retrieves the correct answer
+			return this.alternatives[this.correct];
+		}
+
+
 		public int prompt() {
 			// Prompts the user for an answer (A, B, C, D), validates the input, and converts to an index
 			
@@ -66,7 +77,7 @@ class MusicQuiz {
 			String reply;		// User input
 			String[] valid = new String[] { "A", "B", "C", "D" }; // Valid answers
 			
-			while (answer != -1) {
+			while (answer == -1) {
 				reply = MusicQuiz.in.nextLine().toUpperCase();
 				if (Arrays.asList(valid).contains(reply)) {
 					answer = (int)reply.charAt(0) - (int)'A'; // Convert to index (A is 0, B is 1, etc.)
@@ -78,16 +89,15 @@ class MusicQuiz {
 		}
 
 		public boolean ask(boolean reveal) {
-			// Ask a question, receuve the answer, give feedback and return success flag.
+			// Ask a question, receive the answer, give feedback and return success flag.
 			// Optionally reveals the correct answer.
 			// TODO | More interesting feedback (GUI and audio eventually, various encouragement for now)
-			if (prompt() == this.correct) {
-				System.out.println("Hurrah. You got it!");
-				return true;
-			} else {
-				System.out.println(String.format("I'm afraid not.%s", reveal ? String.format(" The right answer is %s.\n", this.alternatives[this.correct]) : ""));
-				return false;
-			}
+
+			this.display();
+			boolean right = prompt() == this.correct;
+			System.out.println(right ? "Hurrah. You got it!" : "I'm afraid not." + (reveal ? " The right answer is " + this.answer() + ".\n" : ""));
+			return right;
+
 		}
 
 	}
@@ -95,6 +105,11 @@ class MusicQuiz {
 
 	public Question[] retrieveQuestions() {
 		return this.questions;
+	}
+
+
+	public int numQuestions() {
+		return this.questions.length();
 	}
 
 
@@ -113,10 +128,14 @@ class MusicQuiz {
 		
 		MusicQuiz quiz = new MusicQuiz();
 		int score = 0;
+		//Question[] l = quiz.retrieveQuestions();
+		//int num = l[0].display();
 
 		for (Question q : quiz.retrieveQuestions()) {
 			score += q.ask(true) ? 1 : 0; // Correct answers yield one point
 		}
+
+		System.out.format("You've finished the quiz! Your final score is %d/%d.", score, quiz.numQuestions()); // TODO | Feedback based on performance
 
 	}
 
