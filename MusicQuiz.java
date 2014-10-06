@@ -33,13 +33,14 @@ class MusicQuiz {
 
 		private final String question;	// Question text
 		private final int correct;		// Index of correct alternative
-		private final String[] alternatives = new String[4]; // TODO | Choosing from a set of possible alternatives
+		private String[] alternatives = new String[4]; // TODO | Choosing from a set of possible alternatives
+		//private final String[] alternatives = new String[4]; // TODO | Choosing from a set of possible alternatives
 
 		public Question(String q, int correct, String a, String b, String c, String d) {
 			this.question = q;
 			this.correct = correct;
 			// TODO | Simplify initialization
-
+			this.alternatives = new String[] {a, b, c, d};
 			/*
 			this.alternatives[0] = a;
 			this.alternatives[1] = b;
@@ -95,7 +96,7 @@ class MusicQuiz {
 
 			this.display();
 			boolean right = prompt() == this.correct;
-			System.out.println(right ? "Hurrah. You got it!" : "I'm afraid not." + (reveal ? " The right answer is " + this.answer() + ".\n" : ""));
+			System.out.println(right ? "Hurrah. You got it!\n" : "I'm afraid not." + (reveal ? " The right answer is " + this.answer() + "." : "") + "\n");
 			return right;
 
 		}
@@ -116,10 +117,10 @@ class MusicQuiz {
 	public MusicQuiz() {
 		final String prefix = "What is the capital of ";
 		this.questions = new Question[] {
-			new Question(prefix + "Sweden?", 0, "Stockholm", "Copenhagen", "the Hague", "Ottawa"),
-			new Question(prefix + "Burma?", 0, "Naypyidaw", "Laos", "Asmara", "Canberra"),
-			new Question(prefix + "Chile", 2, "Moscow", "Ulan Bator", "Lima", "Santiago"),
-			new Question(prefix + "Cote d'Ivoire", 1, "Cairo", "Yamoussoukro", "Belgrade", "Dublin")
+			new Question(prefix + "Sweden?", 	   0, 	"Stockholm", 	"Copenhagen", 	"the Hague", 	"Ottawa"),
+			new Question(prefix + "Burma?",		   0, 	"Naypyidaw", 	"Laos", 		"Asmara", 		"Canberra"),
+			new Question(prefix + "Chile", 	 	   2, 	"Moscow", 		"Ulan Bator", 	"Lima", 		"Santiago"),
+			new Question(prefix + "Cote d'Ivoire", 1, 	"Cairo", 		"Yamoussoukro", "Belgrade", 	"Dublin")
 		};
 	}
 
