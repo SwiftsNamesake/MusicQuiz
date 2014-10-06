@@ -26,8 +26,8 @@ import java.util.Arrays;
 class MusicQuiz {
 
 	private Question[] questions;
-
 	public static final Scanner in = new Scanner(System.in);
+
 
 	class Question {
 
@@ -39,7 +39,7 @@ class MusicQuiz {
 			this.question = q;
 			this.correct = correct;
 			// TODO | Simplify initialization
-			
+
 			/*
 			this.alternatives[0] = a;
 			this.alternatives[1] = b;
@@ -109,7 +109,7 @@ class MusicQuiz {
 
 
 	public int numQuestions() {
-		return this.questions.length();
+		return this.questions.length; // NOTE | String.length is a method, wheras Array.length is an attribute
 	}
 
 
@@ -128,8 +128,6 @@ class MusicQuiz {
 		
 		MusicQuiz quiz = new MusicQuiz();
 		int score = 0;
-		//Question[] l = quiz.retrieveQuestions();
-		//int num = l[0].display();
 
 		for (Question q : quiz.retrieveQuestions()) {
 			score += q.ask(true) ? 1 : 0; // Correct answers yield one point
