@@ -22,14 +22,16 @@
 
 class Question {
 
-	private final String question;	// Question text
-	private final int correct;		// Index of correct alternative
-	private /* final */ String[] alternatives;// = new String[4]; // TODO | Choosing from a set of possible alternatives
+
+	private final String question;			// Question text
+	private final int correct;				// Index of correct alternative
+	private final String[] alternatives;	// TODO | Choosing from a set of possible alternatives
+
 
 	public Question(String q, int correct, String a, String b, String c, String d) {
+		this.alternatives = new String[] {a, b, c, d};
 		this.question = q;
 		this.correct = correct;
-		//this.alternatives = new String[] {a, b, c, d}; // TODO | Simplify initialization (...)
 	}
 
 
@@ -93,7 +95,7 @@ class Question {
 		
 		while (answer == -1) {
 			reply = MusicQuiz.in.nextLine().toUpperCase();
-			if ("ABCD".contains(reply) && reply.length() == 1) {
+			if ((reply.length() == 1) && "ABCD".contains(reply)) {
 				answer = (int)reply.charAt(0) - (int)'A'; // Convert to index (A is 0, B is 1, etc.)
 			}
 		}
@@ -101,5 +103,11 @@ class Question {
 		return answer;
 
 	}
+
+
+	public static void main(String[] args) {
+		new Question("What is the capital of Sweden?", 	    0, 	"Stockholm", 	"Copenhagen", 	"the Hague", 	"Ottawa").display();
+	}
+
 
 }
