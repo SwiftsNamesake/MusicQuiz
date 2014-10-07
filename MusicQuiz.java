@@ -33,20 +33,12 @@ class MusicQuiz {
 
 		private final String question;	// Question text
 		private final int correct;		// Index of correct alternative
-		private String[] alternatives = new String[4]; // TODO | Choosing from a set of possible alternatives
-		//private final String[] alternatives = new String[4]; // TODO | Choosing from a set of possible alternatives
+		private /* final */ String[] alternatives = new String[4]; // TODO | Choosing from a set of possible alternatives
 
 		public Question(String q, int correct, String a, String b, String c, String d) {
 			this.question = q;
 			this.correct = correct;
-			// TODO | Simplify initialization
-			this.alternatives = new String[] {a, b, c, d};
-			/*
-			this.alternatives[0] = a;
-			this.alternatives[1] = b;
-			this.alternatives[2] = c;
-			this.alternatives[3] = d;
-			*/
+			this.alternatives = new String[] {a, b, c, d}; // TODO | Simplify initialization (...)
 		}
 
 
@@ -90,7 +82,7 @@ class MusicQuiz {
 		}
 
 		public boolean ask(boolean reveal) {
-			// Ask a question, receive the answer, give feedback and return success flag.
+			// Asks a question, receives the answer, gives feedback and returns success flag.
 			// Optionally reveals the correct answer.
 			// TODO | More interesting feedback (GUI and audio eventually, various encouragement for now)
 
@@ -117,10 +109,10 @@ class MusicQuiz {
 	public MusicQuiz() {
 		final String prefix = "What is the capital of ";
 		this.questions = new Question[] {
-			new Question(prefix + "Sweden?", 	   0, 	"Stockholm", 	"Copenhagen", 	"the Hague", 	"Ottawa"),
-			new Question(prefix + "Burma?",		   0, 	"Naypyidaw", 	"Laos", 		"Asmara", 		"Canberra"),
-			new Question(prefix + "Chile", 	 	   2, 	"Moscow", 		"Ulan Bator", 	"Lima", 		"Santiago"),
-			new Question(prefix + "Cote d'Ivoire", 1, 	"Cairo", 		"Yamoussoukro", "Belgrade", 	"Dublin")
+			new Question(prefix + "Sweden?", 	    0, 	"Stockholm", 	"Copenhagen", 	"the Hague", 	"Ottawa"),
+			new Question(prefix + "Burma?",		    0, 	"Naypyidaw", 	"Laos", 		"Asmara", 		"Canberra"),
+			new Question(prefix + "Peru?",	 	    2, 	"Moscow", 		"Ulan Bator", 	"Lima", 		"Santiago"),
+			new Question(prefix + "Cote d'Ivoire?", 1, 	"Cairo", 		"Yamoussoukro", "Belgrade", 	"Dublin")
 		};
 	}
 
@@ -130,11 +122,28 @@ class MusicQuiz {
 		MusicQuiz quiz = new MusicQuiz();
 		int score = 0;
 
+		String[] verdicts = new String[] {
+			"abysmal",
+			"terrible",
+			"deplorable",
+			"depressing",
+			"unremarkable",
+			"decent",
+			"incredible",k
+			"excellent",
+			"extraordinary",
+			"prodigious",
+			"jaw dropping",
+			"surreal"
+		};
+
 		for (Question q : quiz.retrieveQuestions()) {
 			score += q.ask(true) ? 1 : 0; // Correct answers yield one point
 		}
 
-		System.out.format("You've finished the quiz! Your final score is %d/%d.", score, quiz.numQuestions()); // TODO | Feedback based on performance
+		 // TODO | Feedback based on performance (...)
+		String verdict = verdicts[verdicts.length*score/quiz.numQuestions() - 1]; // TODO | Fix index calculation
+		System.out.format("You've finished the quiz! Your final score is %d/%d (%d%%). That's %s!", score, quiz.numQuestions(), 100*score/quiz.numQuestions(), verdict);
 
 	}
 
