@@ -87,26 +87,8 @@ class Question {
 	}
 
 
-	public int prompt() {
-		// Prompts the user for an answer (A, B, C, D), validates the input, and converts to an index
-		
-		int answer = -1;	// Index of the final answer
-		String reply;		// User input
-		
-		while (answer == -1) {
-			reply = MusicQuiz.in.nextLine().toUpperCase();
-			if ((reply.length() == 1) && "ABCD".contains(reply)) {
-				answer = (int)reply.charAt(0) - (int)'A'; // Convert to index (A is 0, B is 1, etc.)
-			}
-		}
-
-		return answer;
-
-	}
-
-
 	public static void main(String[] args) {
-		new Question("What is the capital of Sweden?", 	    0, 	"Stockholm", 	"Copenhagen", 	"the Hague", 	"Ottawa").display();
+		new Question("What is the capital of Sweden?", 0, "Stockholm", "Copenhagen", "the Hague", "Ottawa").display();
 	}
 
 
