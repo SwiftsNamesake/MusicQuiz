@@ -1,6 +1,6 @@
 /*
  *
- * MusicQuiz.java
+ * MusicQuiz - MusicQuiz.java
  * My version of Jay's quiz
  *
  * Jonatan H Sundqvist
@@ -129,7 +129,7 @@ class MusicQuiz {
 			"depressing",
 			"unremarkable",
 			"decent",
-			"incredible",k
+			"incredible",
 			"excellent",
 			"extraordinary",
 			"prodigious",
