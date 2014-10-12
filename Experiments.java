@@ -84,7 +84,6 @@ public class Experiments extends JFrame {
 
 	public void createQuestionnaire() {
 		
-		// new JLabel("<html><p>1. What is the <span COLOR=RED>last</span> name of president Obama?</p></html>");
 		this.question = new JLabel();
 		this.altsPanel = new JPanel();
 		
