@@ -77,19 +77,24 @@ public class Experiments extends JFrame {
 
 
 	public boolean ask(Question q, int num) {
+
 		return false;
 	}
 
 
 	public void createQuestionnaire() {
-		this.add(new JLabel("<html><p>1. What is the <span COLOR=RED>last</span> name of president Obama?</p></html>"));
-		JPanel altsPanel = new JPanel();
+		
+		// new JLabel("<html><p>1. What is the <span COLOR=RED>last</span> name of president Obama?</p></html>");
+		this.question = new JLabel();
+		this.altsPanel = new JPanel();
+		
 		JRadioButton a = new JRadioButton("A. Obama");
 		JRadioButton b = new JRadioButton("B. Hussein");
 		JRadioButton c = new JRadioButton("C. Saddam");
 		JRadioButton d = new JRadioButton("D. Barack");
 		ButtonGroup alts = new ButtonGroup(); // Panel for alternatives
-		alts.add(a); // TODO: Use normal button instead (?)
+	
+		alts.add(a); // TODO: Use normal buttons instead (?)
 		alts.add(b);
 		alts.add(c);
 		alts.add(d);
@@ -98,6 +103,8 @@ public class Experiments extends JFrame {
 		altsPanel.add(b);
 		altsPanel.add(c);
 		altsPanel.add(d);
+		
+		this.add(question);
 		this.add(altsPanel);
 		// this.add(alts); // No need to add ButtonGroup (?)
 	}
