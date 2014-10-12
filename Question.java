@@ -51,6 +51,11 @@ class Question {
 	}
 
 
+	public String questionText() {
+		return this.question;
+	}
+
+
 	public String answer() {
 		// Retrieves the correct answer
 		return this.alternatives[this.correct];
@@ -88,14 +93,14 @@ class Question {
 	}
 
 
-	public static void main(String[] args) {
-		String header =
-		"▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬" +
-		"ＤＡＭＮ ＴＨＩＳ ＣＯＭＭＥＮＴ ＩＳ ＦＡＮＣY" +
-		"▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬﻿";
-		System.out.println(header);
-		new Question("What is the capital of Sweden?", 0, "Stockholm", "Copenhagen", "the Hague", "Ottawa").display();
-	}
+	//public static void main(String[] args) {
+	//	String header =
+	//	"▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬" +
+	//	"ＤＡＭＮ ＴＨＩＳ ＣＯＭＭＥＮＴ ＩＳ ＦＡＮＣY" +
+	//	"▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬﻿";
+	//	System.out.println(header);
+	//	new Question("What is the capital of Sweden?", 0, "Stockholm", "Copenhagen", "the Hague", "Ottawa").display();
+	//}
 
 
 }

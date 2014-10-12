@@ -29,7 +29,7 @@ import java.awt.Label;
 import java.awt.*;
 
 
-// import Question;
+// import MusicQuiz.Question;
 
 // A GUI program is written as a subclass of Frame - the top-level container
 // This subclass inherits all properties from Frame, e.g., title, icon, buttons, content-pane
@@ -40,13 +40,11 @@ public class Experiments extends JFrame {
 
 	private JLabel question; // Holds question text
 	private JPanel altPanel; // Holds alternatives
+	private JRadioButton a, b, c, d;
 
 	// Constructor to setup the GUI components
 	public Experiments() {
-		/*......*/
-		// Allocate an anonymous Label instance. "this" container adds the instance into itself.
-		// You CANNOT reference an anonymous instance to carry out further operations.
-		// this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		this.initialize();
 		// this.createImageGrid();
 		this.createQuestionnaire();
@@ -54,6 +52,7 @@ public class Experiments extends JFrame {
 		// this.setResizable(false);
 		this.setVisible(true);
 		// this.setSize(500, 500);
+
 	}
 
 
@@ -63,7 +62,6 @@ public class Experiments extends JFrame {
 													"stonebrick.png", "crafting_table_side.png", "hardened_clay_stained_magenta.png" }) {
 			this.add(imageLabel(imgPath + "minecraft/" + url));
 		}
-
 	}
 
 
@@ -77,6 +75,7 @@ public class Experiments extends JFrame {
 
 
 	public boolean ask(Question q, int num) {
+		this.question.setText(String.format("%d. %s", num, q.questionText()));
 
 		return false;
 	}
@@ -85,26 +84,26 @@ public class Experiments extends JFrame {
 	public void createQuestionnaire() {
 		
 		this.question = new JLabel();
-		this.altsPanel = new JPanel();
+		this.altPanel = new JPanel(); // Panel for alternatives
 		
-		JRadioButton a = new JRadioButton();
-		JRadioButton b = new JRadioButton();
-		JRadioButton c = new JRadioButton();
-		JRadioButton d = new JRadioButton();
-		ButtonGroup alts = new ButtonGroup(); // Panel for alternatives
+		this.a = new JRadioButton();
+		this.b = new JRadioButton();
+		this.c = new JRadioButton();
+		this.d = new JRadioButton();
+		ButtonGroup alts = new ButtonGroup();
 	
-		alts.add(a); // TODO: Use normal buttons instead (?)
-		alts.add(b);
-		alts.add(c);
-		alts.add(d);
+		alts.add(this.a); // TODO: Use normal buttons instead (?)
+		alts.add(this.b);
+		alts.add(this.c);
+		alts.add(this.d);
 		
-		altsPanel.add(a);
-		altsPanel.add(b);
-		altsPanel.add(c);
-		altsPanel.add(d);
+		altPanel.add(this.a);
+		altPanel.add(this.b);
+		altPanel.add(this.c);
+		altPanel.add(this.d);
 		
 		this.add(question);
-		this.add(altsPanel);
+		this.add(altPanel);
 		// this.add(alts); // No need to add ButtonGroup (?)
 	}
 

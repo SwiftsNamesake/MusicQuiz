@@ -19,6 +19,8 @@
  */
 
 
+package MusicQuiz;
+
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import java.io.File;
