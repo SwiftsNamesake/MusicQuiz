@@ -19,6 +19,8 @@
  */
 
 
+package MusicQuiz;
+
 import java.util.Scanner;
 import java.util.Arrays;
 
@@ -117,7 +119,7 @@ class MusicQuiz {
 	}
 
 
-	public static void main(String[] args) {
+	public static void run() {
 		
 		MusicQuiz quiz = new MusicQuiz();
 		int score = 0;
@@ -146,6 +148,8 @@ class MusicQuiz {
 		System.out.format("You've finished the quiz! Your final score is %d/%d (%d%%). That's %s!", score, quiz.numQuestions(), 100*score/quiz.numQuestions(), verdict);
 
 	}
+
+	// public static void main(String[] args) { run(); }
 
 
 }

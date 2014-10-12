@@ -1,6 +1,6 @@
 /*
  *
- * Question - MusicQuiz.java
+ * MusicQuiz - Question.java
  * Desc...
  *
  * Jonatan H Sundqvist
@@ -18,6 +18,7 @@
  *
  */
 
+package MusicQuiz;
 
 
 class Question {
@@ -88,6 +89,11 @@ class Question {
 
 
 	public static void main(String[] args) {
+		String header =
+		"▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬" +
+		"ＤＡＭＮ ＴＨＩＳ ＣＯＭＭＥＮＴ ＩＳ ＦＡＮＣY" +
+		"▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬﻿";
+		System.out.println(header);
 		new Question("What is the capital of Sweden?", 0, "Stockholm", "Copenhagen", "the Hague", "Ottawa").display();
 	}
 
