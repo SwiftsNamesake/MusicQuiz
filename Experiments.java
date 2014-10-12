@@ -88,10 +88,10 @@ public class Experiments extends JFrame {
 		this.question = new JLabel();
 		this.altsPanel = new JPanel();
 		
-		JRadioButton a = new JRadioButton("A. Obama");
-		JRadioButton b = new JRadioButton("B. Hussein");
-		JRadioButton c = new JRadioButton("C. Saddam");
-		JRadioButton d = new JRadioButton("D. Barack");
+		JRadioButton a = new JRadioButton();
+		JRadioButton b = new JRadioButton();
+		JRadioButton c = new JRadioButton();
+		JRadioButton d = new JRadioButton();
 		ButtonGroup alts = new ButtonGroup(); // Panel for alternatives
 	
 		alts.add(a); // TODO: Use normal buttons instead (?)
