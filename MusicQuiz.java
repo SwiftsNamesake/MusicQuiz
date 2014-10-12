@@ -73,7 +73,7 @@ class MusicQuiz {
 		};
 
 		for (Question q : quiz.retrieveQuestions()) {
-			score += q.ask(true) ? 1 : 0; // Correct answers yield one point
+			// score += q.ask(true) ? 1 : 0; // Correct answers yield one point // TODO: Implement console IO in Question after all (or IO interface?)
 		}
 
 		 // TODO | Feedback based on performance (...)

@@ -56,6 +56,11 @@ class Question {
 	}
 
 
+	public String[] retrieveAlternatives() {
+		return this.alternatives;
+	}
+
+
 	public String answer() {
 		// Retrieves the correct answer
 		return this.alternatives[this.correct];
