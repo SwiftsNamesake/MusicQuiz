@@ -27,12 +27,15 @@ import java.util.Arrays;
 
 class MusicQuiz {
 
-	private Question[] questions;
-	private int progress;
+	private Question[] questions;	//
+	private int current;			// Index of the current question
+	private int score;				// Current score
 
 
 	public MusicQuiz() {
 		final String prefix = "What is the capital of ";
+		this.current = 0;
+		this.score = 0;
 		this.questions = new Question[] {
 			new Question(prefix + "Sweden?", 	    0, 	"Stockholm", 	"Copenhagen", 	"the Hague", 	"Ottawa"),
 			new Question(prefix + "Burma?",		    0, 	"Naypyidaw", 	"Laos", 		"Asmara", 		"Canberra"),
@@ -41,14 +44,61 @@ class MusicQuiz {
 		};
 	}
 
-	
+
+	public MusicQuiz(Question[] questions) {
+		this.current = 0;
+		this.score = 0;
+		this.questions = questions;
+	}
+
+
+	public boolean submitAnswer(char answer) {
+		if (this.currentQuestion().isCorrect(answer)) {
+			this.score += 1; // Increase score
+			this.nextQuestion();
+			return true;
+		} else {
+			this.nextQuestion();
+			return false;
+		}
+	}
+
+
 	public Question[] retrieveQuestions() {
 		return this.questions;
 	}
 
 
+	public int retrieveScore() {
+		return this.score;
+	}
+
+	
 	public int numQuestions() {
 		return this.questions.length; // NOTE | String.length is a method, wheras Array.length is an attribute
+	}
+
+
+	public Question currentQuestion() {
+		return this.questions[this.current];
+	}
+
+
+	public Question nextQuestion() {
+		// Advances the quiz to the next question
+		// TODO | Error handling
+		this.current++;
+		return this.currentQuestion();
+	}
+
+
+	public boolean guess(char letter) {
+		return this.currentQuestion().isCorrect(letter);
+	}
+
+
+	public int currentIndex() {
+		return this.current;
 	}
 
 
