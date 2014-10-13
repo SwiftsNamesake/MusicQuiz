@@ -81,14 +81,13 @@ public class Experiments extends JFrame implements ActionListener {
 	}
 
 
-	public boolean ask(Question q, int num) {
+	public void ask(Question q, int num) {
 		this.question.setText(String.format("%d. %s", num, q.questionText()));
 		this.a.setText("A. " + q.retrieveAlternatives()[0]);
 		this.b.setText("B. " + q.retrieveAlternatives()[1]);
 		this.c.setText("C. " + q.retrieveAlternatives()[2]);
 		this.d.setText("D. " + q.retrieveAlternatives()[3]);
 		this.pack();
-		return false;
 	}
 
 
