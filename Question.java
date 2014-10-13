@@ -28,7 +28,7 @@ class Question {
 	private final String question;			// Question text
 	private final int correct;				// Index of correct alternative
 	private final String[] alternatives;	// TODO | Choosing from a set of possible alternatives
-
+	
 
 	public Question(String q, int correct, String a, String b, String c, String d) {
 		this.alternatives = new String[] {a, b, c, d};

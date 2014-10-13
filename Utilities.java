@@ -40,12 +40,18 @@ class Utilities {
 
 
 	public static int playSound(String fn) {
+		// TODO: Reconsider return type
+		loadSound(fn).play();
+		return 0;
+	}
+
+
+	public static MediaPlayer loadSound(String fn) {
+		// 
 		String uri = new File(fn).toURI().toString();
 		debugMessage("Playing file: \'%s\'", uri);
 		Media media = new Media(uri);
-		MediaPlayer mp = new MediaPlayer(media);
-		mp.play();
-		return 0;
+		return new MediaPlayer(media);
 	}
 
 

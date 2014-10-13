@@ -1,7 +1,7 @@
 /*
  *
- * MusicQuiz - Controller.java
- * Model view controller (IO, delegates to logic and GUI)
+ * MusicQuiz - Main.java
+ * Entry point for music quiz
  *
  * Jonatan H Sundqvist
  * October 13 2014
@@ -22,10 +22,15 @@
 package MusicQuiz;
 
 
-class Controller {
-	
-	public Controller() {
+class Main {
 
+	public void Main() {
+
+	}
+
+
+	public static void main(String[] args) {
+		
 	}
 
 }
