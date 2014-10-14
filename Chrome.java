@@ -11,7 +11,7 @@
 
 /*
  *	TODO | - Review nomenclature (eg. buttonText vs button)
- *	       - 
+ *	       - Scoreboard
  *
  *	SPEC | - 
  *	       - 
@@ -79,30 +79,28 @@ public class Chrome extends JFrame {
 
 	public void ask(Question q, int num) {
 		// Loads the question into the GUI
-		this.setQuestionText(q.questionText());
-		this.a.setText("A. " + q.retrieveAlternatives()[0]);
-		this.b.setText("B. " + q.retrieveAlternatives()[1]);
-		this.c.setText("C. " + q.retrieveAlternatives()[2]);
-		this.d.setText("D. " + q.retrieveAlternatives()[3]);
+		this.setQuestionText(q.questionText(), num);
+		this.setAlternatives(q.retrieveAlternatives());
 		this.pack();
 	}
 
 
-	public void setAlternatives(String[] ) {
+	public void setAlternatives(String[] alternatives) {
+		// TODO: Clear up name confusion (cf. related TODO)
 		int i = 0;
-		for (JButton alt : this.alternatives) {
-			alt.setText("%c. %s", "ABCD".charAt(i), )
+		for (JButton alt : new JButton[] {this.a, this.b, this.c, this.d}) {
+			alt.setText(String.format("%c. %s", "ABCD".charAt(i), alternatives[i]));
 			i++;
 		}
 	}
 
 
-	public void setQuestionText(String q) {
+	public void setQuestionText(String q, int num) {
 		this.question.setText(String.format("%d. %s", num, q));
 	}
 
 
-	public void setFeedbacktext(String feedback) {
+	public void setFeedbackText(String feedback) {
 		this.feedback.setText(feedback);
 	}
 

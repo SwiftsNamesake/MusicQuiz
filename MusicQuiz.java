@@ -86,8 +86,10 @@ class MusicQuiz {
 
 	public Question nextQuestion() {
 		// Advances the quiz to the next question
-		// TODO | Error handling
-		this.current++;
+		// TODO | Error handling (...)
+		// TODO | Use another data-structure (popable or cyclic) instead (?)
+		// TODO | Return boolean instead (indicating successful increment)
+		this.current += this.current < this.numQuestions()-1 ? 1 : 0; // Increment 
 		return this.currentQuestion();
 	}
 
