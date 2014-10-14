@@ -29,11 +29,28 @@ class Question {
 	private final int correct;				// Index of correct alternative
 	private final String[] alternatives;	// TODO | Choosing from a set of possible alternatives
 	
+	private String audio; // Optional URI to associated media file
 
 	public Question(String q, int correct, String a, String b, String c, String d) {
 		this.alternatives = new String[] {a, b, c, d};
 		this.question = q;
 		this.correct = correct;
+		this.audio = null;
+	}
+
+
+	public Question(String q, int correct, String a, String b, String c, String d, String audio) {
+		this(q, correct, a, b, c, d);
+		this.audio = audio;
+	}
+
+
+	public void play() {
+		// Plays the associated media file, if one exists
+		if (this.audio != null) {
+			System.out.println("Playing question sound.");
+			Utilities.playSound(this.audio);
+		}
 	}
 
 

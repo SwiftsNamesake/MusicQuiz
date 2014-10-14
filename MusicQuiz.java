@@ -37,10 +37,15 @@ class MusicQuiz {
 		this.current = 0;
 		this.score = 0;
 		this.questions = new Question[] {
+			// Geography
 			new Question(prefix + "Sweden?", 	    0, 	"Stockholm", 	"Copenhagen", 	"the Hague", 	"Ottawa"),
 			new Question(prefix + "Burma?",		    0, 	"Naypyidaw", 	"Laos", 		"Asmara", 		"Canberra"),
 			new Question(prefix + "Peru?",	 	    2, 	"Moscow", 		"Ulan Bator", 	"Lima", 		"Santiago"),
-			new Question(prefix + "Cote d'Ivoire?", 1, 	"Cairo", 		"Yamoussoukro", "Belgrade", 	"Dublin")
+			new Question(prefix + "Cote d'Ivoire?", 1, 	"Cairo", 		"Yamoussoukro", "Belgrade", 	"Dublin"),
+
+			// Music
+			// TODO: Research Unicode
+			new Question("Who composed this masterpiece?", 1, "Paul Dirac", "Franz Liszt", "Auguste de la Fleur", "Frederic Chopin", "HungarianRhapsody.mp3")
 		};
 	}
 

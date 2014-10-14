@@ -53,7 +53,7 @@ class Utilities {
 		JFXPanel p = new JFXPanel();
 		String uri = new File(fn).toURI().toString();
 		debugMessage("Playing file: \'%s\'", uri);
-		Media media = new Media(uri);
+		Media media = new Media(uri); // TODO: Cache Media object (?)
 		return new MediaPlayer(media);
 	}
 

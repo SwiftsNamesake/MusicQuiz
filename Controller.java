@@ -76,6 +76,7 @@ class Controller implements ActionListener {
 	public void loadQuestion() {
 		// Loads the current question into the view (GUI)
 		this.chrome.ask(this.quiz.currentQuestion(), this.quiz.currentIndex()+1);
+		this.quiz.currentQuestion().play();
 	}
 
 
