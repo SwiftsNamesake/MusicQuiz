@@ -25,6 +25,8 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import java.io.File;
 
+import javafx.embed.swing.JFXPanel;
+
 
 class Utilities {
 
@@ -48,6 +50,7 @@ class Utilities {
 
 	public static MediaPlayer loadSound(String fn) {
 		// 
+		JFXPanel p = new JFXPanel();
 		String uri = new File(fn).toURI().toString();
 		debugMessage("Playing file: \'%s\'", uri);
 		Media media = new Media(uri);

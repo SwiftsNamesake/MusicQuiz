@@ -10,7 +10,7 @@
 
 
 /*
- *	TODO | - 
+ *	TODO | - Review nomenclature (eg. buttonText vs button)
  *	       - 
  *
  *	SPEC | - 
@@ -46,10 +46,7 @@ import java.awt.event.KeyEvent;
 import java.awt.*;
 
 
-// import MusicQuiz.Question;
 
-// A GUI program is written as a subclass of Frame - the top-level container
-// This subclass inherits all properties from Frame, e.g., title, icon, buttons, content-pane
 public class Chrome extends JFrame {
 
 	public static final long serialVersionUID = 314159265;
@@ -81,12 +78,32 @@ public class Chrome extends JFrame {
 
 
 	public void ask(Question q, int num) {
-		this.question.setText(String.format("%d. %s", num, q.questionText()));
+		// Loads the question into the GUI
+		this.setQuestionText(q.questionText());
 		this.a.setText("A. " + q.retrieveAlternatives()[0]);
 		this.b.setText("B. " + q.retrieveAlternatives()[1]);
 		this.c.setText("C. " + q.retrieveAlternatives()[2]);
 		this.d.setText("D. " + q.retrieveAlternatives()[3]);
 		this.pack();
+	}
+
+
+	public void setAlternatives(String[] ) {
+		int i = 0;
+		for (JButton alt : this.alternatives) {
+			alt.setText("%c. %s", "ABCD".charAt(i), )
+			i++;
+		}
+	}
+
+
+	public void setQuestionText(String q) {
+		this.question.setText(String.format("%d. %s", num, q));
+	}
+
+
+	public void setFeedbacktext(String feedback) {
+		this.feedback.setText(feedback);
 	}
 
 
