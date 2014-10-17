@@ -65,11 +65,22 @@ class Utilities {
 	}
 
 
-	public static void play(Media audio) {
+	public static MediaPlayer play(Media audio) {
 		// Audio playback
 		// TODO | Neater solution to initialization (?)
-		debugMessage("Playing audio");
-		new MediaPlayer(audio).play();
+		// debugMessage("Playing audio");
+		MediaPlayer player = new MediaPlayer(audio);
+		player.play();
+		return player;
+	}
+
+
+	public static MediaPlayer stop(MediaPlayer audio) {
+		// Audio playback
+		// TODO | Neater solution to initialization (?)
+		// debugMessage("Stopping audio");
+		audio.stop();
+		return audio;
 	}
 
 

@@ -52,11 +52,15 @@ class Controller implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO: Refactor, clean up
-		// System.out.format("You clicked %s!\n", e.getActionCommand());
+		
+		// Handle guess
 		char answer = e.getActionCommand().charAt(0);
-		boolean correct = this.quiz.submitAnswer(answer);
-		System.out.format("%c is %scorrect! You now have %d point%s.\n", answer, !correct ? "not " : "", this.quiz.retrieveScore(), this.quiz.retrieveScore() == 1 ? "" : "s");
-		// (correct ? ding : strangle).play();
+		R.stop(this.quiz.currentQuestion().mediaID); // Stop previous sound
+		boolean correct = this.quiz.submitAnswer(answer); // NOTE: submitAnswer also changes the question index
+
+		Utilities.debugMessage("%c is %scorrect! You now have %d point%s.\n", answer, !correct ? "not " : "", this.quiz.retrieveScore(), this.quiz.retrieveScore() == 1 ? "" : "s");
+
+		// Load next question
 		this.chrome.setFeedbackText(correct ? "Who wouldn't have known that?" : "I'm disappointed...");
 		R.play(correct ? R.DING : R.STRANGLE);
 		this.loadQuestion();
@@ -76,7 +80,7 @@ class Controller implements ActionListener {
 	public void loadQuestion() {
 		// Loads the current question into the view (GUI)
 		// this.quiz.currentQuestion().play();
-		R.play(this.quiz.currentQuestion().mediaID);
+		R.play(this.quiz.currentQuestion().mediaID, true);
 		this.chrome.ask(this.quiz.currentQuestion(), this.quiz.currentIndex()+1);
 	}
 

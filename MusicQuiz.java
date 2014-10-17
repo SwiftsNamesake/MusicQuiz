@@ -47,7 +47,7 @@ class MusicQuiz {
 			// TODO: Research Unicode
 			new Question("Who composed this masterpiece?", 1, "Paul Dirac", "Franz Liszt", "Auguste de la Fleur", "Frederic Chopin", R.RHAPSODY),
 			new Question("Which ironic impediment did the composer of this piece suffer from when he wrote it?", 1,
-						 "Blindness", "Deafness", "Being ginger", "Mutiny", R.DING)
+						 "Blindness", "Deafness", "Being ginger", "Mutiny", R.NINTH)
 		};
 	}
 
