@@ -52,14 +52,14 @@ class Utilities {
 		// 
 		JFXPanel p = new JFXPanel();
 		String uri = new File(fn).toURI().toString();
-		debugMessage("Playing file: \'%s\'", uri);
+		// debugMessage("Playing file: \'%s\'", uri);
 		Media media = new Media(uri); // TODO: Cache Media object (?)
 		return new MediaPlayer(media);
 	}
 
 
 	public static Utilities get() {
-		// TODO < Better name
+		// TODO | Better name
 		// Implements singleton pattern
 		if (utils == null) {
 			utils = new Utilities();

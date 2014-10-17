@@ -111,9 +111,11 @@ public class Chrome extends JFrame {
 		this.altPanel = new JPanel(new GridLayout(2,2)); // Panel for alternatives
 		this.feedback = new JLabel("Feedback goes here...");
 
-		this.question.setBorder(new EmptyBorder(5, 5, 5, 5));
-		this.altPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		this.feedback.setBorder(new EmptyBorder(5, 5, 5, 5));
+		int padding = 5;
+
+		this.question.setBorder(new EmptyBorder(padding, padding, padding, padding));
+		this.altPanel.setBorder(new EmptyBorder(padding, padding, padding, padding));
+		this.feedback.setBorder(new EmptyBorder(padding, padding, padding, padding));
 
 		this.a = new JButton();
 		this.b = new JButton();

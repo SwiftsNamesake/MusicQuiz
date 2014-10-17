@@ -10,8 +10,9 @@
 
 
 /*
- *	TODO | - 
- *	       - 
+ *	TODO | - Win/lose
+ *	       - Improved UI (eg. menus, animation, colours)
+ *	       - Typographical improvements (fonts, styling, etc.)
  *
  *	SPEC | - 
  *	       - 
@@ -36,13 +37,12 @@ class Controller implements ActionListener {
 	Chrome chrome;
 	MusicQuiz quiz;
 
-	JFXPanel p;
 	
 	// static final MediaPlayer ding = Utilities.loadSound("C:/Users/Jonatan/Desktop/Java/MusicQuiz/ding.wav");
 	// static final MediaPlayer strangle = Utilities.loadSound("C:/Users/Jonatan/Desktop/Java/MusicQuiz/strangle.wav");
 
 	public Controller() {
-		p = new JFXPanel();
+		// p = new JFXPanel();
 		System.out.println("Controller...");
 		this.chrome = new Chrome(this);
 		this.quiz = new MusicQuiz();
@@ -66,8 +66,8 @@ class Controller implements ActionListener {
 	public void playEffect(String effect) {
 		// TODO: Refactor, remove switch (?)
 		switch (effect) {
-			case "win": Utilities.playSound("ding.wav"); break;
-			case "lose": Utilities.playSound("strangled.wav"); break;
+			case "win": Utilities.playSound("resources/ding.wav"); break;
+			case "lose": Utilities.playSound("resources/strangled.wav"); break;
 			default: break;
 		}
 	}
@@ -75,8 +75,8 @@ class Controller implements ActionListener {
 
 	public void loadQuestion() {
 		// Loads the current question into the view (GUI)
-		this.chrome.ask(this.quiz.currentQuestion(), this.quiz.currentIndex()+1);
 		this.quiz.currentQuestion().play();
+		this.chrome.ask(this.quiz.currentQuestion(), this.quiz.currentIndex()+1);
 	}
 
 

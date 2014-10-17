@@ -45,7 +45,9 @@ class MusicQuiz {
 
 			// Music
 			// TODO: Research Unicode
-			new Question("Who composed this masterpiece?", 1, "Paul Dirac", "Franz Liszt", "Auguste de la Fleur", "Frederic Chopin", "HungarianRhapsody.mp3")
+			new Question("Who composed this masterpiece?", 1, "Paul Dirac", "Franz Liszt", "Auguste de la Fleur", "Frederic Chopin", "resources/HungarianRhapsody.mp3"),
+			new Question("Which ironic impediment did the composer of this piece suffer from when he wrote it?", 1,
+						 "Blindness", "Deafness", "Being ginger", "Mutiny", "resources/ding.wav")
 		};
 	}
 
@@ -58,6 +60,7 @@ class MusicQuiz {
 
 
 	public boolean submitAnswer(char answer) {
+		// Submits answer, evaluates it and advanced to the next question
 		if (this.currentQuestion().isCorrect(answer)) {
 			this.score += 1; // Increase score
 			this.nextQuestion();
@@ -94,8 +97,21 @@ class MusicQuiz {
 		// TODO | Error handling (...)
 		// TODO | Use another data-structure (popable or cyclic) instead (?)
 		// TODO | Return boolean instead (indicating successful increment)
-		this.current += this.current < this.numQuestions()-1 ? 1 : 0; // Increment 
+		this.current += this.current < (this.numQuestions()-1) ? 1 : 0; // Increment 
 		return this.currentQuestion();
+	}
+
+
+	public boolean isComplete() {
+		// True if question list is exhausted
+		// TODO | Differentiate being on the last question and having answered it already
+		return this.questionsRemaining() == 0;
+	}
+
+
+	public int questionsRemaining() {
+		// Number of remaining questions
+		return this.numQuestions() - this.currentIndex();
 	}
 
 

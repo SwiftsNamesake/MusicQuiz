@@ -48,7 +48,6 @@ class Question {
 	public void play() {
 		// Plays the associated media file, if one exists
 		if (this.audio != null) {
-			System.out.println("Playing question sound.");
 			Utilities.playSound(this.audio);
 		}
 	}
