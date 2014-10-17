@@ -33,6 +33,15 @@ class Utilities {
 	public static boolean DEBUG;
 	private static Utilities utils;
 
+	private static JFXPanel p;
+
+	static {
+		// Static initializers
+		debugMessage("Initializing static utilities");
+		DEBUG = true;
+		Utilities.p = new JFXPanel();
+	}
+
 	public static void debugMessage(String message, Object... args) {
 		// Prints a (possibly formatted) debug message to stdout
 		if (DEBUG) {
@@ -43,18 +52,24 @@ class Utilities {
 
 	public static int playSound(String fn) {
 		// TODO: Reconsider return type
-		loadSound(fn).play();
+		Utilities.play(Utilities.loadSound(fn));
 		return 0;
 	}
 
 
-	public static MediaPlayer loadSound(String fn) {
-		// 
-		JFXPanel p = new JFXPanel();
+	public static Media loadSound(String fn) {
+		// Creates a media object from the specified file
+		// TODO | Find out if MediaPlayers can't be reset
 		String uri = new File(fn).toURI().toString();
-		// debugMessage("Playing file: \'%s\'", uri);
-		Media media = new Media(uri); // TODO: Cache Media object (?)
-		return new MediaPlayer(media);
+		return new Media(uri); // TODO: Cache Media object (?)
+	}
+
+
+	public static void play(Media audio) {
+		// Audio playback
+		// TODO | Neater solution to initialization (?)
+		debugMessage("Playing audio");
+		new MediaPlayer(audio).play();
 	}
 
 
@@ -71,7 +86,7 @@ class Utilities {
 
 
 	private Utilities() {
-		DEBUG = true;
+
 	}
 
 }

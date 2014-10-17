@@ -45,9 +45,9 @@ class MusicQuiz {
 
 			// Music
 			// TODO: Research Unicode
-			new Question("Who composed this masterpiece?", 1, "Paul Dirac", "Franz Liszt", "Auguste de la Fleur", "Frederic Chopin", "resources/HungarianRhapsody.mp3"),
+			new Question("Who composed this masterpiece?", 1, "Paul Dirac", "Franz Liszt", "Auguste de la Fleur", "Frederic Chopin", R.RHAPSODY),
 			new Question("Which ironic impediment did the composer of this piece suffer from when he wrote it?", 1,
-						 "Blindness", "Deafness", "Being ginger", "Mutiny", "resources/ding.wav")
+						 "Blindness", "Deafness", "Being ginger", "Mutiny", R.DING)
 		};
 	}
 
@@ -61,6 +61,7 @@ class MusicQuiz {
 
 	public boolean submitAnswer(char answer) {
 		// Submits answer, evaluates it and advanced to the next question
+		// TODO | Better to remove nextQuestion (?)
 		if (this.currentQuestion().isCorrect(answer)) {
 			this.score += 1; // Increase score
 			this.nextQuestion();

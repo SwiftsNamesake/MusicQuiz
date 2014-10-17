@@ -27,7 +27,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-import javafx.scene.media.MediaPlayer;
+// import javafx.scene.media.MediaPlayer;
 
 import javafx.embed.swing.JFXPanel; // TODO: Fix this hack to make the MediaPlayer work
 
@@ -58,7 +58,7 @@ class Controller implements ActionListener {
 		System.out.format("%c is %scorrect! You now have %d point%s.\n", answer, !correct ? "not " : "", this.quiz.retrieveScore(), this.quiz.retrieveScore() == 1 ? "" : "s");
 		// (correct ? ding : strangle).play();
 		this.chrome.setFeedbackText(correct ? "Who wouldn't have known that?" : "I'm disappointed...");
-		this.playEffect(correct ? "win" : "lose");
+		R.play(correct ? R.DING : R.STRANGLE);
 		this.loadQuestion();
 	}
 
@@ -66,8 +66,8 @@ class Controller implements ActionListener {
 	public void playEffect(String effect) {
 		// TODO: Refactor, remove switch (?)
 		switch (effect) {
-			case "win": Utilities.playSound("resources/ding.wav"); break;
-			case "lose": Utilities.playSound("resources/strangled.wav"); break;
+			case "win": Utilities.play(R.ding); break;
+			case "lose": Utilities.play(R.strangle); break;
 			default: break;
 		}
 	}
@@ -75,7 +75,8 @@ class Controller implements ActionListener {
 
 	public void loadQuestion() {
 		// Loads the current question into the view (GUI)
-		this.quiz.currentQuestion().play();
+		// this.quiz.currentQuestion().play();
+		R.play(this.quiz.currentQuestion().mediaID);
 		this.chrome.ask(this.quiz.currentQuestion(), this.quiz.currentIndex()+1);
 	}
 
