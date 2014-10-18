@@ -39,9 +39,6 @@ class Controller implements ActionListener {
 	MusicQuiz quiz;
 
 	
-	// static final MediaPlayer ding = Utilities.loadSound("C:/Users/Jonatan/Desktop/Java/MusicQuiz/ding.wav");
-	// static final MediaPlayer strangle = Utilities.loadSound("C:/Users/Jonatan/Desktop/Java/MusicQuiz/strangle.wav");
-
 	public Controller() {
 		// p = new JFXPanel();
 		System.out.println("Controller...");
@@ -75,10 +72,6 @@ class Controller implements ActionListener {
 		this.chrome.ask(this.quiz.currentQuestion(), this.quiz.currentIndex()+1);
 	}
 
-
-	public void run() {
-
-	}
 
 	public static void main(String[] args) {
 		System.out.println("Main...");
