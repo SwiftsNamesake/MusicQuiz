@@ -68,16 +68,6 @@ class Controller implements ActionListener {
 	}
 
 
-	public void playEffect(String effect) {
-		// TODO: Refactor, remove switch (?)
-		switch (effect) {
-			case "win": Utilities.play(R.ding); break;
-			case "lose": Utilities.play(R.strangle); break;
-			default: break;
-		}
-	}
-
-
 	public void loadQuestion() {
 		// Loads the current question into the view (GUI)
 		// this.quiz.currentQuestion().play();
