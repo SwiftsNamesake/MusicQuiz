@@ -1,0 +1,3 @@
+title=Musikfrågor
+right=Bra gjort!
+wrong=Uruselt!

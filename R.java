@@ -71,13 +71,14 @@ class R {
 	}
 
 
-	public static boolean play(int id) {
+	public static MediaPlayer play(int id) {
+		// Plays the Media object with the specified ID
+		// TODO: Return MediaPlayer instead (would negate the need for a cache) (✓)
 		Media audio = byID(id);
 		if (audio != null) {
-			Utilities.play(audio);
-			return true;
+			return Utilities.play(audio);
 		} else {
-			return false;
+			return null;
 		}
 	}
 
@@ -104,7 +105,7 @@ class R {
 
 	public static boolean stop(int id) {
 		if (R.cacheID == id && id >= 0) {
-			Utilities.debugMessage("ID is %d and cacheID is %d", id, R.cacheID);
+			// Utilities.debugMessage("ID is %d and cacheID is %d", id, R.cacheID);
 			Utilities.stop(R.cache);
 			return true;
 		} else {

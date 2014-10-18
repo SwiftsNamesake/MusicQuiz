@@ -89,7 +89,8 @@ public class Chrome extends JFrame {
 		// TODO: Clear up name confusion (cf. related TODO)
 		int i = 0;
 		for (JButton alt : new JButton[] {this.a, this.b, this.c, this.d}) {
-			alt.setText(String.format("%c. %s", "ABCD".charAt(i), alternatives[i]));
+			// alt.setText(String.format("<html><b>%c.</b> %s</html>", "ABCD".charAt(i), alternatives[i]));
+			alt.setText(String.format("<html><font color=#FFCC22>%c.</font> %s</html>", "ABCD".charAt(i), alternatives[i]));
 			i++;
 		}
 	}

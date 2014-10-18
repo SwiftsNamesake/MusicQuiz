@@ -13,6 +13,7 @@
  *	TODO | - Win/lose
  *	       - Improved UI (eg. menus, animation, colours)
  *	       - Typographical improvements (fonts, styling, etc.)
+ *	       - Timer, speed bonus
  *
  *	SPEC | - 
  *	       - 
@@ -29,7 +30,7 @@ import java.awt.event.KeyEvent;
 
 // import javafx.scene.media.MediaPlayer;
 
-import javafx.embed.swing.JFXPanel; // TODO: Fix this hack to make the MediaPlayer work
+// import javafx.embed.swing.JFXPanel; // TODO: Fix this hack to make the MediaPlayer work
 
 
 class Controller implements ActionListener {
@@ -58,7 +59,7 @@ class Controller implements ActionListener {
 		R.stop(this.quiz.currentQuestion().mediaID); // Stop previous sound
 		boolean correct = this.quiz.submitAnswer(answer); // NOTE: submitAnswer also changes the question index
 
-		Utilities.debugMessage("%c is %scorrect! You now have %d point%s.\n", answer, !correct ? "not " : "", this.quiz.retrieveScore(), this.quiz.retrieveScore() == 1 ? "" : "s");
+		Utilities.debugMessage("%c is %scorrect! You now have %d point%s.", answer, !correct ? "not " : "", this.quiz.retrieveScore(), this.quiz.retrieveScore() == 1 ? "" : "s");
 
 		// Load next question
 		this.chrome.setFeedbackText(correct ? "Who wouldn't have known that?" : "I'm disappointed...");
