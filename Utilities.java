@@ -96,6 +96,10 @@ class Utilities {
 	}
 
 
+	public static String choose(String[] strings) {
+		return strings[(int)(Math.random()*(strings.length))];
+	}
+
 	private Utilities() {
 
 	}

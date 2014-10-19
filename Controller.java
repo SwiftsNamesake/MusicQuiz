@@ -1,5 +1,4 @@
 /*
- *
  * MusicQuiz - Controller.java
  * Model view controller (IO, delegates to logic and GUI)
  *
@@ -35,13 +34,23 @@ import java.awt.event.KeyEvent;
 
 class Controller implements ActionListener {
 	
+
 	Chrome chrome;
 	MusicQuiz quiz;
+
+	private static final String[] positive =  new String[] { "Who wouldn't have known that",
+															 "I'm a tiny bit impressed.",
+															 "Feeling proud of yourself?" };
+
+	private static final String[] negative =  new String[] { "Your ignorance sickens me.",
+															 "I'm disappointed.",
+															 "You accidentally hit the wrong button, right?",
+															 "If it gets it wrong we eatsss it, no?" };
 
 	
 	public Controller() {
 		// p = new JFXPanel();
-		System.out.println("Controller...");
+		Utilities.debugMessage("Controller...");
 		this.chrome = new Chrome(this);
 		this.quiz = new MusicQuiz();
 		this.loadQuestion();
@@ -59,7 +68,7 @@ class Controller implements ActionListener {
 		Utilities.debugMessage("%c is %scorrect! You now have %d point%s.", answer, !correct ? "not " : "", this.quiz.retrieveScore(), this.quiz.retrieveScore() == 1 ? "" : "s");
 
 		// Load next question
-		this.chrome.setFeedbackText(correct ? "Who wouldn't have known that?" : "I'm disappointed...");
+		this.chrome.setFeedbackText(Utilities.choose(correct ? positive : negative)); // Choose and display random feedback message (positive for right answers, negative otherwise)
 		R.play(correct ? R.DING : R.STRANGLE);
 		this.loadQuestion();
 	}
@@ -74,7 +83,7 @@ class Controller implements ActionListener {
 
 
 	public static void main(String[] args) {
-		System.out.println("Main...");
+		Utilities.debugMessage("Main...");
 		Controller ctr = new Controller();
 	}
 

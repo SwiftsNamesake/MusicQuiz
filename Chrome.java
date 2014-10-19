@@ -54,23 +54,25 @@ public class Chrome extends JFrame {
 	private JLabel question; // Holds question text
 	private JPanel altPanel; // Holds alternatives
 	private JLabel feedback; // 
+
+	private JLabel scoreBoard; //
 	
 	private JButton a, b, c, d; // Alternatives
 	
 
 	public Chrome(ActionListener listener) {
-		System.out.println("Chrome");
+		Utilities.debugMessage("Chrome");
 		this.initialize();
 		this.createQuestionnaire(listener);
-		this.pack();
+		// this.pack();
 		this.setVisible(true);
 	}
 
 
 	public void initialize() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// this.setLayout(new FlowLayout());
 		this.setLayout(new GridLayout(0,1));
+		// this.setLayout(new FlowLayout());
 		//this.setLayout(new GridLayout(0,3));
 		// this.setResizable(false);
 		// this.setVisible(true);
@@ -86,23 +88,33 @@ public class Chrome extends JFrame {
 
 
 	public void setAlternatives(String[] alternatives) {
+		// 
 		// TODO: Clear up name confusion (cf. related TODO)
 		int i = 0;
 		for (JButton alt : new JButton[] {this.a, this.b, this.c, this.d}) {
 			// alt.setText(String.format("<html><b>%c.</b> %s</html>", "ABCD".charAt(i), alternatives[i]));
-			alt.setText(String.format("<html><font color=#FFCC22>%c.</font> %s</html>", "ABCD".charAt(i), alternatives[i]));
+			// alt.setText(String.format("<html><font color=#FFCC22>%c.</font> %s</html>", "ABCD".charAt(i), alternatives[i]));
+			alt.setText(String.format("<html><font color=RED>%c.</font> %s<html>", "ABCD".charAt(i), alternatives[i]));
 			i++;
 		}
 	}
 
 
 	public void setQuestionText(String q, int num) {
+		// 
 		this.question.setText(String.format("%d. %s", num, q));
 	}
 
 
 	public void setFeedbackText(String feedback) {
+		// 
 		this.feedback.setText(feedback);
+	}
+
+
+	public void setScoreBoard(String score) {
+		//
+		this.scoreBoard.setText(score);
 	}
 
 
@@ -112,7 +124,7 @@ public class Chrome extends JFrame {
 		this.altPanel = new JPanel(new GridLayout(2,2)); // Panel for alternatives
 		this.feedback = new JLabel("Feedback goes here...");
 
-		int padding = 5;
+		int padding = 7;
 
 		this.question.setBorder(new EmptyBorder(padding, padding, padding, padding));
 		this.altPanel.setBorder(new EmptyBorder(padding, padding, padding, padding));

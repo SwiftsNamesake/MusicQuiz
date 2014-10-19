@@ -10,7 +10,7 @@
 
 
 /*
- *	TODO | - Find alternative to switch or generate file automatically
+ *	TODO | - Find alternative to switch or generate file automatically (cf. ClassBuilder.py) (...)
  *	       - Refactor (make handling of possibly cached MediaPlayers less convoluted)
  *	       - 
  *
@@ -31,6 +31,7 @@ class R {
 
 	static {
 		R.cacheID = -1;
+		Utilities.debugMessage("Initialzed R.java at %f hours", (double)(System.nanoTime())/(1000000000*60L*60L));
 	}
 
 
