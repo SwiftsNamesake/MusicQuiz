@@ -43,7 +43,7 @@ class CustomDraw extends JPanel {
 	private static final long serialVersionUID = 10203L;
 	private static final Color[] colors = new Color[] { Color.red, Color.blue, Color.green, Color.green, Color.magenta, Color.green, Color.yellow };
 
-	private Drawable[] drawables;
+	private Draw[] drawables; // Drawing operations to be performed at each refresh
 
 	private int x, y, width, height;
 
