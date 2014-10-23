@@ -59,16 +59,6 @@ class CustomDraw extends JPanel {
 		public To f(From arg);
 	}
 
-	private class Drawable {
-		// Wraps a graphics routine so that drawing
-		// operations may be stored for future reference
-		public final Draw draw;
-
-		Drawable(Draw draw) {
-			this.draw = draw;
-		}
-
-	}
 
 	private static Color chooseFromPalette() {
 		// Chosoe a random colour from a pre-defined palette
