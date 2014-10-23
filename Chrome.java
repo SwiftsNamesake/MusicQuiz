@@ -34,10 +34,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import javax.swing.ButtonGroup;
+import javax.swing.BorderFactory;
 import javax.swing.border.*;
+
+import javax.swing.SwingConstants;
 
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
+import java.awt.Color;
 import java.awt.Frame;  // Using Frame class in package java.awt
 import java.awt.Label;
 import java.awt.event.ActionEvent;
@@ -53,9 +57,10 @@ public class Chrome extends JFrame {
 
 	private JLabel question; // Holds question text
 	private JPanel altPanel; // Holds alternatives
-	private JLabel feedback; // 
-
-	private JLabel scoreBoard; //
+	
+	private JPanel stats; 		// Contains stats and output components
+	private JLabel feedback; 	// 
+	private JLabel scoreBoard; 	//
 	
 	private JButton a, b, c, d; // Alternatives
 	
@@ -70,6 +75,7 @@ public class Chrome extends JFrame {
 
 
 	public void initialize() {
+		this.setTitle("Ein kleine Musik-Qvitz");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new GridLayout(0,1));
 		// this.setLayout(new FlowLayout());
@@ -102,34 +108,51 @@ public class Chrome extends JFrame {
 
 	public void setQuestionText(String q, int num) {
 		// 
-		this.question.setText(String.format("%d. %s", num, q));
+		Border line 	= BorderFactory.createLineBorder(Color.black);
+		Border border 	= BorderFactory.createTitledBorder(line, String.format("%d. %s", num, q), TitledBorder.LEFT, TitledBorder.TOP);
+		// this.question.setText(String.format("%d. %s", num, q));
+		// this.question.setBorder(border);
+		this.altPanel.setBorder(border);
 	}
 
 
 	public void setFeedbackText(String feedback) {
 		// 
 		this.feedback.setText(feedback);
+		// this.stats.pack();
 	}
 
 
 	public void setScoreBoard(String score) {
 		//
 		this.scoreBoard.setText(score);
+		// this.stats.pack();
 	}
 
 
 	public void createQuestionnaire(ActionListener listener) {
 		
-		this.question = new JLabel();
+		// this.question = new JLabel();
 		this.altPanel = new JPanel(new GridLayout(2,2)); // Panel for alternatives
-		this.feedback = new JLabel("Feedback goes here...");
+
+		this.stats 		= new JPanel(new FlowLayout());
+		this.feedback 	= new JLabel("Feedback goes here...", SwingConstants.LEFT);
+		this.scoreBoard = new JLabel("0p", SwingConstants.RIGHT);
+
+		Border etched 	= BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
+		Border line 	= BorderFactory.createLineBorder(Color.red);
+		Border scoreTitle 	= BorderFactory.createTitledBorder(line, "Score", TitledBorder.LEFT, TitledBorder.TOP);
+		Border feedTitle 	= BorderFactory.createTitledBorder(line, "Feedback", TitledBorder.LEFT, TitledBorder.TOP);
+
+		this.feedback.setBorder(feedTitle);
+		this.scoreBoard.setBorder(scoreTitle);
 
 		int padding = 7;
 
-		this.question.setBorder(new EmptyBorder(padding, padding, padding, padding));
-		this.altPanel.setBorder(new EmptyBorder(padding, padding, padding, padding));
-		this.feedback.setBorder(new EmptyBorder(padding, padding, padding, padding));
-
+		// this.question.setBorder(etched);
+		this.altPanel.setBorder(etched);
+		this.stats.setBorder(etched);
+		
 		this.a = new JButton();
 		this.b = new JButton();
 		this.c = new JButton();
@@ -148,9 +171,12 @@ public class Chrome extends JFrame {
 			i++;
 		}
 		
-		this.add(question);
+		this.stats.add(this.feedback);
+		this.stats.add(this.scoreBoard);
+
+		// this.add(question);
 		this.add(altPanel);
-		this.add(feedback);
+		this.add(stats);
 		// this.add(alts); // No need to add ButtonGroup (?)
 	}
 

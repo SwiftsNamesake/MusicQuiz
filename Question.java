@@ -36,10 +36,10 @@ class Question {
 
 
 	public Question(String q, int correct, String a, String b, String c, String d) {
-		this.alternatives = new String[] {a, b, c, d};
-		this.question = q;
-		this.correct = correct;
-		this.mediaID = -1; // NOTE | Invalid ID by default
+		this.alternatives 	= new String[] {a, b, c, d};
+		this.question 		=  q;
+		this.correct 		=  correct;
+		this.mediaID 		= -1; // NOTE | Invalid ID by default
 	}
 
 	

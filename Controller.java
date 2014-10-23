@@ -69,6 +69,7 @@ class Controller implements ActionListener {
 
 		// Load next question
 		this.chrome.setFeedbackText(Utilities.choose(correct ? positive : negative)); // Choose and display random feedback message (positive for right answers, negative otherwise)
+		this.chrome.setScoreBoard(String.format("%d/%d (%.2f%%)", this.quiz.retrieveScore(), this.quiz.numQuestions(), 100.0f*this.quiz.retrieveScore()/this.quiz.numQuestions()));
 		R.play(correct ? R.DING : R.STRANGLE);
 		this.loadQuestion();
 	}
