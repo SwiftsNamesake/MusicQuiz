@@ -35,15 +35,17 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseMotionAdapter;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 
 
-class CustomDraw extends JPanel {
+class CustomDraw extends JPanel implements MouseMotionListener {
 
 	private static final long serialVersionUID = 10203L;
 	private static final Color[] colors = new Color[] { Color.red, Color.blue, Color.green, Color.green, Color.magenta, Color.green, Color.yellow };
 
-	private Draw[] drawables; // Drawing operations to be performed at each refresh
+	// private Draw[] drawables; // Drawing operations to be performed at each refresh
+	private Vector<Draw> drawables; // Drawing operations to be performed at each refresh
 
 	private int x, y, width, height;
 
@@ -51,7 +53,7 @@ class CustomDraw extends JPanel {
 	static <From, To> ArrayList<To> map(From[] list, Mapper<From, To> mapper) {
 		ArrayList<To> result = new ArrayList<To>();
 		for (int i = 0; i < list.length; i++) result.add(mapper.f(list[i]));
-		return result;
+			return result;
 	}
 	
 
@@ -74,6 +76,7 @@ class CustomDraw extends JPanel {
 	private interface Draw {
 		public void draw(Graphics g);
 	}
+
 
 	private interface Function {
 		// NOTE: Due to numerous complaints regarding the excessively
@@ -102,19 +105,77 @@ class CustomDraw extends JPanel {
 		width  = 21;
 		height = 21;
 		
+		// Graphics
+		this.drawables = new Vector<Draw>();
+
+		this.drawables.add( g -> g.drawString("This is your dead granny. How are you, dear?", 26, 65) );
+		this.drawables.add( g -> g.setColor(chooseFromPalette()));
+		this.drawables.add( g -> g.fillRect(x, y, width, height));
+		this.drawables.add( g -> plot(g, x -> Math.exp(x), (gr, x, y) -> {
+			// Plot point callback
+			// Utilities.debugMessage("Green: %f", (float)(1.0f+Math.sin(x*0.1)/2));
+			// gr.setColor(new Color(Math.abs((float)(x-(int)x)), (float)Math.min(1.0f+(Math.sin(x*0.3)/2.0f), 1.0f), 0.0f, (float)(Math.abs(x)/(1.8*200))));
+			gr.setColor(randomColour());
+			int size = 10; // + (int)(20*Math.pow(1.01, x));
+			gr.fillOval((int)x+20, (int)y+20, size, size);
+		}, 0, 20.0, 0.02, 150, 150)); // Modify these values dynamically (function for creating variables bound to GUI elements)
+
+		CustomDraw cd = this;
+
 		// Events
-		addMouseListener(new MouseAdapter() {
+		this.addMouseMotionListener(this);
+		this.addMouseListener(new MouseAdapter() {
+			boolean pressed = false;
 			public void mousePressed(MouseEvent e) {
+
+				this.pressed = !this.pressed; 
+
 				width = 20 + (int)(Math.random()*150);
 				height = width;
 
 				x = e.getX()-width/2;
 				y = e.getY()-height/2;
 
+				cd.drawables.add(new Draw() {
+					// TODO | Figure out how closures and namespaces work in Java (by reference, by value, etc),
+					// particulary w.r.t. lambdas and anonymous classes.
+					int posX = x, posY = y;
+					public void draw(Graphics g) {
+						g.drawString(String.format("X %d | Y %d", posX, posY), posX, posY-5);
+					}
+				});
+
+				System.out.format("Number of drawables: %d\n", cd.drawables.size());
 				repaint();
 			}
+
+			public void mouseReleased(MouseEvent e) { this.pressed = !this.pressed; System.out.println("Releasing..."); }
+
+
 		});
 	}
+
+
+	public void mouseMoved(MouseEvent e) {
+		// System.out.println("Moving...");
+		// if (true) {
+			// System.out.println("Dragging...");
+		// }
+	}
+
+
+	public void mouseDragged(MouseEvent e) {
+		this.drawables.add(new Draw() {
+			int x = e.getX(), y = e.getY();
+			int w = 20, h = 20;
+			public void draw(Graphics g) {
+				g.fillOval(x-w/2, y-h/2, w, h);
+			}
+		});
+		repaint();
+		// System.out.println("Dragging...");
+	}
+
 
 	public Dimension getPreferredSize() {
 		return new Dimension(320, 320);
@@ -122,18 +183,13 @@ class CustomDraw extends JPanel {
 
 
 	public void paintComponent(Graphics g) {
+		//
 		super.paintComponent(g);
-		g.drawString("This is your dead granny. How are you, dear?", 26, 65);
-		g.setColor(chooseFromPalette());
-		g.fillRect(x, y, width, height);
-		plot(g, x -> Math.exp(x), (gr, x, y) -> {
-			// Plot point callback
-			// Utilities.debugMessage("Green: %f", (float)(1.0f+Math.sin(x*0.1)/2));
-			// gr.setColor(new Color(Math.abs((float)(x-(int)x)), (float)Math.min(1.0f+(Math.sin(x*0.3)/2.0f), 1.0f), 0.0f, (float)(Math.abs(x)/(1.8*200))));
-			gr.setColor(randomColour());
-			int size = 10; // + (int)(20*Math.pow(1.01, x));
-			gr.fillOval((int)x+20, (int)y+20, size, size);
-		}, 0, 20.0, 0.02, 150, 150); // Modify these values dynamically (function for creating variables bound to GUI elements)
+
+		for (Draw d : this.drawables) {
+			d.draw(g);
+		}
+
 	}
 
 
