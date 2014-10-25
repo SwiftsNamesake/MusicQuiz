@@ -34,6 +34,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseMotionAdapter;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Timer;
+
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -49,7 +54,11 @@ class CustomDraw extends JPanel implements MouseMotionListener {
 
 	private int x, y, width, height;
 
+	// Animation
+	private Timer timer;
+	private int FPS;
 
+	// Methods
 	static <From, To> ArrayList<To> map(From[] list, Mapper<From, To> mapper) {
 		ArrayList<To> result = new ArrayList<To>();
 		for (int i = 0; i < list.length; i++) result.add(mapper.f(list[i]));
@@ -153,6 +162,23 @@ class CustomDraw extends JPanel implements MouseMotionListener {
 
 
 		});
+
+		// Animation
+		this.FPS = 30;
+		// int posX = 0, posY = 0;
+		// Draw ball = g -> g.fillOval(posX, posY, 20, 20);
+		// this.drawables.add(ball);
+		this.timer = new Timer(1000/this.FPS, new ActionListener(){
+			float x = 0, y = 0;
+			public synchronized void actionPerformed(ActionEvent e) {
+				x += 1;
+				y += 5;
+				drawables.add(g -> g.fillOval((int)x, (int)y, 20, 20));
+				repaint();
+			}
+		});
+		this.timer.start();
+
 	}
 
 
@@ -184,7 +210,7 @@ class CustomDraw extends JPanel implements MouseMotionListener {
 
 	public void paintComponent(Graphics g) {
 		//
-		super.paintComponent(g);
+		// super.paintComponent(g);
 
 		for (Draw d : this.drawables) {
 			d.draw(g);
