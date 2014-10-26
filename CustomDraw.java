@@ -188,8 +188,8 @@ class CustomDraw extends JPanel implements MouseMotionListener {
 
 			// private 
 
-			private int eyeRadius = 0;
-			private int pupilRadius = 0;
+			private int eyeRadius = w;
+			private int pupilRadius = w/2;
 			private int eyeDist = 80;
 
 			private int noseRadius = 0;
@@ -210,12 +210,12 @@ class CustomDraw extends JPanel implements MouseMotionListener {
 				int screenY = (int)(120*Math.sin(x/40.0f)+200);
 
 				// Left eye
-				drawCircle(g, screenX, screenY, w, g.getColor());
-				drawCircle(g, screenX, screenY, w/2, colors[2]);
+				drawCircle(g, screenX, screenY, eyeRadius, g.getColor());
+				drawCircle(g, screenX, screenY, pupilRadius, colors[2]);
 
 				// Right eye
-				drawCircle(g, eyeDist+screenX, screenY, w, Color.black);
-				drawCircle(g, eyeDist+screenX, screenY, w/2, colors[2]);
+				drawCircle(g, eyeDist+screenX, screenY, eyeRadius, Color.black);
+				drawCircle(g, eyeDist+screenX, screenY, pupilRadius, colors[2]);
 
 				// Nose
 				drawCircle(g, eyeDist/2+screenX, eyeDist/2+screenY, (int)(1.2*w), Color.red);
@@ -224,6 +224,9 @@ class CustomDraw extends JPanel implements MouseMotionListener {
 
 				// Mouth
 				drawOval(g, eyeDist/2+screenX, screenY+120, 40, (int)(20+20*Math.abs(Math.sin(x/40.0f))), Color.black);
+
+				// Tear
+				drawOval(g, screenX, (screenY+eyeRadius)+8+(x/6)%80, 5, 8, Color.cyan);
 
 			}
 
