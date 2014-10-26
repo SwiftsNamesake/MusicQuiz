@@ -11,6 +11,7 @@
 /*
  *	TODO | - Record words (including numbers) and build a simple voice synthesizer
  *	       - Pronouncing numbers (15 203 -> "fifteen thousand two-hundred and three")
+ *	       - A little cartoon Beethoven conducting the orchestra
  *
  *	SPEC | - 
  *	       - 
@@ -51,6 +52,7 @@ class CustomDraw extends JPanel implements MouseMotionListener {
 
 	// private Draw[] drawables; // Drawing operations to be performed at each refresh
 	private Vector<Draw> drawables; // Drawing operations to be performed at each refresh
+	// private Vector<Animated> animatables;
 
 	private int x, y, width, height;
 
@@ -84,8 +86,15 @@ class CustomDraw extends JPanel implements MouseMotionListener {
 
 	private interface Draw {
 		public void draw(Graphics g);
+		default public void animate(int delta) {
+
+		}
 	}
 
+
+	// private interface Animated extends Draw {
+		// public void animate(int delta);
+	// }
 
 	private interface Function {
 		// NOTE: Due to numerous complaints regarding the excessively
@@ -116,6 +125,7 @@ class CustomDraw extends JPanel implements MouseMotionListener {
 		
 		// Graphics
 		this.drawables = new Vector<Draw>();
+		// this.animatables = new Vector<Animated>();
 
 		this.drawables.add( g -> g.drawString("This is your dead granny. How are you, dear?", 26, 65) );
 		this.drawables.add( g -> g.setColor(chooseFromPalette()));
@@ -168,15 +178,81 @@ class CustomDraw extends JPanel implements MouseMotionListener {
 		// int posX = 0, posY = 0;
 		// Draw ball = g -> g.fillOval(posX, posY, 20, 20);
 		// this.drawables.add(ball);
+		
+		Draw mover = new Draw() {
+			private int x = 0, y = 0;
+			private int w = 20, h = 20;
+			
+			// private Color eyeColour = 0;
+			// private Color pupilColour = 0;
+
+			// private 
+
+			private int eyeRadius = 0;
+			private int pupilRadius = 0;
+			private int eyeDist = 80;
+
+			private int noseRadius = 0;
+
+			private void drawCircle(Graphics g, int xc, int yc, int radius, Color colour) {
+				g.setColor(colour);
+				g.fillOval(xc-radius, yc-radius, radius*2, radius*2);
+			}
+
+			private void drawOval(Graphics g, int xc, int yc, int wr, int hr, Color colour) {
+				g.setColor(colour);
+				g.fillOval(xc-wr, yc-hr, wr*2, hr*2);
+			}
+
+			public void draw(Graphics g) {
+
+				int screenX = (x%900+50);
+				int screenY = (int)(120*Math.sin(x/40.0f)+200);
+
+				// Left eye
+				drawCircle(g, screenX, screenY, w, g.getColor());
+				drawCircle(g, screenX, screenY, w/2, colors[2]);
+
+				// Right eye
+				drawCircle(g, eyeDist+screenX, screenY, w, Color.black);
+				drawCircle(g, eyeDist+screenX, screenY, w/2, colors[2]);
+
+				// Nose
+				drawCircle(g, eyeDist/2+screenX, eyeDist/2+screenY, (int)(1.2*w), Color.red);
+				drawCircle(g, eyeDist/2+screenX+12, eyeDist/2+screenY, (int)(0.35*w), Color.black);
+				drawCircle(g, eyeDist/2+screenX-12, eyeDist/2+screenY, (int)(0.35*w), Color.black);
+
+				// Mouth
+				drawOval(g, eyeDist/2+screenX, screenY+120, 40, (int)(20+20*Math.abs(Math.sin(x/40.0f))), Color.black);
+
+			}
+
+			public void animate(int delta) {
+				x += 5;
+			}
+		};
+
+		// this.animatables.add(mover);
+		
+
+		this.drawables.add(mover);
+
 		this.timer = new Timer(1000/this.FPS, new ActionListener(){
-			float x = 0, y = 0;
+			// float x = 0, y = 0;
 			public synchronized void actionPerformed(ActionEvent e) {
-				x += 1;
-				y += 5;
-				drawables.add(g -> g.fillOval((int)x, (int)y, 20, 20));
+				// x += 1;
+				// y += 5;
+				// drawables.add(g -> g.fillOval((int)x, (int)y, 20, 20));
+				// repaint();
+				for (Draw drawable : drawables) {
+					drawable.animate(1000/FPS);
+				}
+
 				repaint();
+
 			}
 		});
+
 		this.timer.start();
 
 	}
@@ -210,7 +286,7 @@ class CustomDraw extends JPanel implements MouseMotionListener {
 
 	public void paintComponent(Graphics g) {
 		//
-		// super.paintComponent(g);
+		super.paintComponent(g);
 
 		for (Draw d : this.drawables) {
 			d.draw(g);
