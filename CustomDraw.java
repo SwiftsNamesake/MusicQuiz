@@ -38,6 +38,11 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
+
+import java.awt.Point;
+
 import javax.swing.Timer;
 
 import java.util.ArrayList;
@@ -50,6 +55,8 @@ class CustomDraw extends JPanel implements MouseMotionListener {
 	private static final long serialVersionUID = 10203L;
 	private static final Color[] colors = new Color[] { Color.red, Color.blue, Color.green, Color.green, Color.magenta, Color.green, Color.yellow };
 
+	private int mouseX = 0, mouseY = 0;
+
 	// private Draw[] drawables; // Drawing operations to be performed at each refresh
 	private Vector<Draw> drawables; // Drawing operations to be performed at each refresh
 	// private Vector<Animated> animatables;
@@ -59,6 +66,7 @@ class CustomDraw extends JPanel implements MouseMotionListener {
 	// Animation
 	private Timer timer;
 	private int FPS;
+	private boolean RUNNING = true;
 
 	// Methods
 	static <From, To> ArrayList<To> map(From[] list, Mapper<From, To> mapper) {
@@ -143,11 +151,30 @@ class CustomDraw extends JPanel implements MouseMotionListener {
 
 		// Events
 		this.addMouseMotionListener(this);
+		
+		this.setFocusable(true);
+		this.requestFocusInWindow();
+
+		this.addKeyListener(new KeyListener() {
+
+			public void keyTyped(KeyEvent e) {  }
+
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+					RUNNING = !RUNNING;
+				}
+			}
+
+			public void keyReleased(KeyEvent e) { }
+
+
+		});
+
 		this.addMouseListener(new MouseAdapter() {
 			boolean pressed = false;
 			public void mousePressed(MouseEvent e) {
 
-				this.pressed = !this.pressed; 
+				this.pressed = !this.pressed;
 
 				width = 20 + (int)(Math.random()*150);
 				height = width;
@@ -183,13 +210,15 @@ class CustomDraw extends JPanel implements MouseMotionListener {
 			private int x = 0, y = 0;
 			private int w = 20, h = 20;
 			
+			// private int mouseX = 0, mouseY = 0;
 			// private Color eyeColour = 0;
 			// private Color pupilColour = 0;
 
 			// private 
 
-			private int eyeRadius = w;
-			private int pupilRadius = w/2;
+			private int eyeRadius = 20;
+			private int pupilRadius = 6;
+			private int irisRadius = pupilRadius + 6;
 			private int eyeDist = 80;
 
 			private int noseRadius = 0;
@@ -204,18 +233,42 @@ class CustomDraw extends JPanel implements MouseMotionListener {
 				g.fillOval(xc-wr, yc-hr, wr*2, hr*2);
 			}
 
+
+			private Point lookAt(int targetX, int targetY, int irisX, int irisY, int irisRadius, int pupilRadius) {
+				// Calculates the offset between the pupil and iris centre points, based on a target point
+				// TODO | Solve with similar triangles instead (?)
+				// TODO | 
+				int dx = targetX-irisX, dy = targetY-irisY;
+				double hypotenuse = Math.sqrt(dx*dx + dy*dy);
+
+				int rx = (int)((dx/hypotenuse)*(irisRadius-pupilRadius));
+				int ry = (int)((dy/hypotenuse)*(irisRadius-pupilRadius));
+
+				return new Point(rx, ry);
+
+			}
+
+
 			public void draw(Graphics g) {
 
 				int screenX = (x%900+50);
 				int screenY = (int)(120*Math.sin(x/40.0f)+200);
 
+
+				// Head
+				drawOval(g, eyeDist/2+screenX, screenY+50, 105, 124, Color.pink);
+
 				// Left eye
-				drawCircle(g, screenX, screenY, eyeRadius, g.getColor());
-				drawCircle(g, screenX, screenY, pupilRadius, colors[2]);
+				Point leftPupil = lookAt(mouseX, mouseY, screenX, screenY, irisRadius, pupilRadius);
+				drawCircle(g, screenX, screenY, eyeRadius, Color.white); 	// White
+				drawCircle(g, screenX, screenY, pupilRadius+6, colors[2]);	// Iris
+				drawCircle(g, screenX+leftPupil.x, screenY+leftPupil.y, pupilRadius, Color.black); 	// Pupil
 
 				// Right eye
-				drawCircle(g, eyeDist+screenX, screenY, eyeRadius, Color.black);
-				drawCircle(g, eyeDist+screenX, screenY, pupilRadius, colors[2]);
+				Point rightPupil = lookAt(mouseX, mouseY, eyeDist+screenX, screenY, irisRadius, pupilRadius);
+				drawCircle(g, eyeDist+screenX, screenY, eyeRadius, Color.white); 			// White
+				drawCircle(g, eyeDist+screenX, screenY, irisRadius, colors[2]);				// Iris
+				drawCircle(g, eyeDist+screenX+rightPupil.x, screenY+rightPupil.y, pupilRadius, Color.black); 	// Pupil
 
 				// Nose
 				drawCircle(g, eyeDist/2+screenX, eyeDist/2+screenY, (int)(1.2*w), Color.red);
@@ -226,7 +279,11 @@ class CustomDraw extends JPanel implements MouseMotionListener {
 				drawOval(g, eyeDist/2+screenX, screenY+120, 40, (int)(20+20*Math.abs(Math.sin(x/40.0f))), Color.black);
 
 				// Tear
-				drawOval(g, screenX, (screenY+eyeRadius)+8+(x/6)%80, 5, 8, Color.cyan);
+				Color tearColour = new Color(0, 100+(int)(155*Math.abs(Math.sin(x/60.0f))), 100+(int)(155*Math.abs(Math.sin(x/60.0f))), 200);
+				drawOval(g, screenX, (screenY+eyeRadius)+8+(x/6)%80, 5, 8, tearColour);
+				drawOval(g, screenX, (screenY+eyeRadius)+8+(x/6+23)%80, 5, 8, Color.cyan);
+				drawOval(g, screenX, (screenY+eyeRadius)+8+(x/6+42)%80, 5, 8, Color.cyan);
+
 
 			}
 
@@ -240,18 +297,22 @@ class CustomDraw extends JPanel implements MouseMotionListener {
 
 		this.drawables.add(mover);
 
-		this.timer = new Timer(1000/this.FPS, new ActionListener(){
+		this.timer = new Timer(1000/this.FPS, new ActionListener() {
 			// float x = 0, y = 0;
 			public synchronized void actionPerformed(ActionEvent e) {
 				// x += 1;
 				// y += 5;
 				// drawables.add(g -> g.fillOval((int)x, (int)y, 20, 20));
 				// repaint();
-				for (Draw drawable : drawables) {
-					drawable.animate(1000/FPS);
-				}
+				if (RUNNING) {
 
-				repaint();
+					for (Draw drawable : drawables) {
+						drawable.animate(1000/FPS);
+					}
+
+					repaint();
+
+				}
 
 			}
 		});
@@ -266,6 +327,8 @@ class CustomDraw extends JPanel implements MouseMotionListener {
 		// if (true) {
 			// System.out.println("Dragging...");
 		// }
+		mouseX = e.getX();
+		mouseY = e.getY();
 	}
 
 
