@@ -249,25 +249,32 @@ class CustomDraw extends JPanel implements MouseMotionListener {
 			}
 
 
+			private void eye(int scleraR, int scleraX, int scleraY, int irisR, int pupilR, int irisColour, int targetX, int targetY) {
+				Point offset = lookAt(targetX, targetY, scleraX, scleraY, irisR, pupilR);	// Pupil offset
+				drawCircle(g, scleraX, scleraY, scleraR, Color.white);						// Sclera
+				drawCircle(g, scleraX, scleraY, pupilRadius+6, irisColour);					// Iris
+				drawCircle(g, scleraX+offset.x, scleraY+offset.y, pupilR, Color.black); 	// Pupil
+			}
+
+
 			public void draw(Graphics g) {
 
 				int screenX = (x%900+50);
 				int screenY = (int)(120*Math.sin(x/40.0f)+200);
 
-
 				// Head
 				drawOval(g, eyeDist/2+screenX, screenY+50, 105, 124, Color.pink);
 
 				// Left eye
-				Point leftPupil = lookAt(mouseX, mouseY, screenX, screenY, irisRadius, pupilRadius);
-				drawCircle(g, screenX, screenY, eyeRadius, Color.white); 	// White
-				drawCircle(g, screenX, screenY, pupilRadius+6, colors[2]);	// Iris
-				drawCircle(g, screenX+leftPupil.x, screenY+leftPupil.y, pupilRadius, Color.black); 	// Pupil
+				Point leftPupil = lookAt(mouseX, mouseY, screenX, screenY, irisRadius, pupilRadius);	// Left pupil offset
+				drawCircle(g, screenX, screenY, eyeRadius, Color.white);								// Sclera
+				drawCircle(g, screenX, screenY, pupilRadius+6, colors[2]);								// Iris
+				drawCircle(g, screenX+leftPupil.x, screenY+leftPupil.y, pupilRadius, Color.black); 		// Pupil
 
 				// Right eye
-				Point rightPupil = lookAt(mouseX, mouseY, eyeDist+screenX, screenY, irisRadius, pupilRadius);
-				drawCircle(g, eyeDist+screenX, screenY, eyeRadius, Color.white); 			// White
-				drawCircle(g, eyeDist+screenX, screenY, irisRadius, colors[2]);				// Iris
+				Point rightPupil = lookAt(mouseX, mouseY, eyeDist+screenX, screenY, irisRadius, pupilRadius);	// Right pupil offset
+				drawCircle(g, eyeDist+screenX, screenY, eyeRadius, Color.white); 								// Sclera
+				drawCircle(g, eyeDist+screenX, screenY, irisRadius, colors[2]);									// Iris
 				drawCircle(g, eyeDist+screenX+rightPupil.x, screenY+rightPupil.y, pupilRadius, Color.black); 	// Pupil
 
 				// Nose
