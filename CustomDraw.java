@@ -249,7 +249,7 @@ class CustomDraw extends JPanel implements MouseMotionListener {
 			}
 
 
-			private void eye(int scleraR, int scleraX, int scleraY, int irisR, int pupilR, int irisColour, int targetX, int targetY) {
+			private void eye(Graphics g, int scleraR, int scleraX, int scleraY, int irisR, int pupilR, Color irisColour, int targetX, int targetY) {
 				Point offset = lookAt(targetX, targetY, scleraX, scleraY, irisR, pupilR);	// Pupil offset
 				drawCircle(g, scleraX, scleraY, scleraR, Color.white);						// Sclera
 				drawCircle(g, scleraX, scleraY, pupilRadius+6, irisColour);					// Iris
@@ -262,20 +262,9 @@ class CustomDraw extends JPanel implements MouseMotionListener {
 				int screenX = (x%900+50);
 				int screenY = (int)(120*Math.sin(x/40.0f)+200);
 
-				// Head
-				drawOval(g, eyeDist/2+screenX, screenY+50, 105, 124, Color.pink);
-
-				// Left eye
-				Point leftPupil = lookAt(mouseX, mouseY, screenX, screenY, irisRadius, pupilRadius);	// Left pupil offset
-				drawCircle(g, screenX, screenY, eyeRadius, Color.white);								// Sclera
-				drawCircle(g, screenX, screenY, pupilRadius+6, colors[2]);								// Iris
-				drawCircle(g, screenX+leftPupil.x, screenY+leftPupil.y, pupilRadius, Color.black); 		// Pupil
-
-				// Right eye
-				Point rightPupil = lookAt(mouseX, mouseY, eyeDist+screenX, screenY, irisRadius, pupilRadius);	// Right pupil offset
-				drawCircle(g, eyeDist+screenX, screenY, eyeRadius, Color.white); 								// Sclera
-				drawCircle(g, eyeDist+screenX, screenY, irisRadius, colors[2]);									// Iris
-				drawCircle(g, eyeDist+screenX+rightPupil.x, screenY+rightPupil.y, pupilRadius, Color.black); 	// Pupil
+				drawOval(g, eyeDist/2+screenX, screenY+50, 105, 124, Color.pink); 									// Head
+				eye(g, eyeRadius, screenX, screenY, irisRadius, pupilRadius, colors[2], mouseX, mouseY); 			// Left eye
+				eye(g, eyeRadius, eyeDist+screenX, screenY, irisRadius, pupilRadius, colors[2], mouseX, mouseY); 	// Right eye
 
 				// Nose
 				drawCircle(g, eyeDist/2+screenX, eyeDist/2+screenY, (int)(1.2*w), Color.red);
