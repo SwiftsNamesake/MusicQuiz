@@ -37,6 +37,7 @@ class Controller implements ActionListener {
 
 	Chrome chrome;
 	MusicQuiz quiz;
+	Inquisitor database;
 
 	private static final String[] positive =  new String[] { "Who wouldn't have known that",
 															 "I'm a tiny bit impressed.",
@@ -51,8 +52,9 @@ class Controller implements ActionListener {
 	public Controller() {
 		// p = new JFXPanel();
 		Utilities.debugMessage("Controller...");
-		this.chrome = new Chrome(this);
-		this.quiz = new MusicQuiz();
+		this.chrome 	= new Chrome(this);
+		this.database 	= new Inquisitor("resources/questions");
+		this.quiz 		= new MusicQuiz(this.database.retrieveQuestions("capitals"));
 		this.loadQuestion();
 	}
 

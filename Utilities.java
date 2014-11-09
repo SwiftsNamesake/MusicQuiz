@@ -27,6 +27,7 @@ import java.io.File;
 
 import javafx.embed.swing.JFXPanel;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -112,7 +113,12 @@ class Utilities {
 	// File utilities
 	//-------------------------------------------------------------------------
 	public static Stream<String> readlines(String fn) {
-		return Files.lines(fn);
+		try {
+			return Files.lines(Paths.get(fn));
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 

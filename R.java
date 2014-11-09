@@ -77,6 +77,19 @@ class R {
 	}
 
 
+	public static int byName(String name) {
+		switch (name) {
+			case "DING": 		return DING;
+			case "STRANGLE": 	return STRANGLE;
+
+			case "RHAPSODY": 	return RHAPSODY;
+			// case "FIFTH": 	return FIFTH;
+			case "NINTH": 	return NINTH;
+			default: return  -1;
+		}
+	}
+
+
 	public static MediaPlayer play(int id) {
 		// Plays the Media object with the specified ID
 		// TODO: Return MediaPlayer instead (would negate the need for a cache) (✓)
