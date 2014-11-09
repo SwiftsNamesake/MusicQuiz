@@ -27,6 +27,12 @@ import java.io.File;
 
 import javafx.embed.swing.JFXPanel;
 
+import java.nio.file.Path;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
+
 
 class Utilities {
 
@@ -99,6 +105,23 @@ class Utilities {
 	public static String choose(String[] strings) {
 		return strings[(int)(Math.random()*(strings.length))];
 	}
+
+
+
+	//-------------------------------------------------------------------------
+	// File utilities
+	//-------------------------------------------------------------------------
+	public static Stream<String> readlines(String fn) {
+		return Files.lines(fn);
+	}
+
+
+	public static String readfile(String fn) {
+		return null;
+	}
+
+
+
 
 	private Utilities() {
 

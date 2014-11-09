@@ -30,8 +30,13 @@ import javafx.scene.media.MediaPlayer;
 class R {
 
 	static {
-		R.cacheID = -1;
-		Utilities.debugMessage("Initialzed R.java at %f hours", (double)(System.nanoTime())/(1000000000*60L*60L));
+		// R.cacheID = -1;
+		// Utilities.debugMessage("Initialzed R.java at %f hours", (double)(System.nanoTime())/(1000000000*60L*60L));
+		ding 		= Utilities.loadSound("resources/ding.wav");
+		strangle 	= Utilities.loadSound("resources/strangled.wav");
+		rhapsody 	= Utilities.loadSound("resources/HungarianRhapsody.mp3");
+		// fifth 		= Utilities.loadSound("resources/Symphony no 5.mp3"); // TODO | Find proper file
+		ninth 		= Utilities.loadSound("resources/Symphony no 9.mp3"); // TODO | Find proper file
 	}
 
 
@@ -40,13 +45,13 @@ class R {
 	private static int cacheID;			// ID of the related resource
 	
 	// Effects
-	public static final Media ding 		= Utilities.loadSound("resources/ding.wav");
-	public static final Media strangle 	= Utilities.loadSound("resources/strangled.wav");
+	public static final Media ding;
+	public static final Media strangle;
 	
 	// Music
-	public static final Media rhapsody 	= Utilities.loadSound("resources/HungarianRhapsody.mp3");
-	// public static final Media fifth 	= Utilities.loadSound("resources/Symphony no 5.mp3"); // TODO | Find proper file
-	public static final Media ninth 	= Utilities.loadSound("resources/Symphony no 9.mp3"); // TODO | Find proper file
+	public static final Media rhapsody;
+	// public static final Media fifth;
+	public static final Media ninth;
 
 
 	// Effect IDs
@@ -101,7 +106,6 @@ class R {
 	public static int cache() {
 		return R.cacheID;
 	}
-
 
 
 	public static boolean stop(int id) {
