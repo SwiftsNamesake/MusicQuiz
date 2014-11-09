@@ -1,0 +1,6 @@
+What is the capital of Burma?;			0;	Naypyidaw;	Laos;			Asmara;					Canberra
+What is the capital of Sweden?;			0;	Stockholm;	Copenhagen;		the Hague;				Ottawa
+What is the capital of Peru?;			2;	Moscow;		Ulan Bator;		Lima;					Santiago
+What is the capital of Cote d'Ivoire?;	1;	Cairo;		Yamoussoukro;	Belgrade;				Dublin
+Who composed this masterpiece?;			1;	Paul Dirac;	Franz Liszt;	Auguste de la Fleur;	Frederic Chopin;RHAPSODY
+Which ironic impediment did the composer of this piece suffer from when he wrote it?;1;Blindness;Deafness;Being ginger;Mutiny;NINTH
