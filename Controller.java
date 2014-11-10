@@ -14,7 +14,7 @@
  *	       - Typographical improvements (fonts, styling, etc.)
  *	       - Timer, speed bonus
  *
- *	SPEC | - 
+ *	SPEC | - This is currently the main class of the GUI version
  *	       - 
  *
  */
@@ -28,7 +28,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 // import javafx.scene.media.MediaPlayer;
-
 // import javafx.embed.swing.JFXPanel; // TODO: Fix this hack to make the MediaPlayer work
 
 
@@ -63,23 +62,26 @@ class Controller implements ActionListener {
 		// TODO: Refactor, clean up
 		
 		// Handle guess
-		char answer = e.getActionCommand().charAt(0);
-		R.stop(this.quiz.currentQuestion().mediaID); // Stop previous sound
-		boolean correct = this.quiz.submitAnswer(answer); // NOTE: submitAnswer also changes the question index
+		char answer = e.getActionCommand().charAt(0);		// Which alternative was chosen?
+		R.stop(this.quiz.currentQuestion().mediaID); 		// Stop previous sound
+		boolean correct = this.quiz.submitAnswer(answer); 	// NOTE: submitAnswer also changes the question index
 
 		Utilities.debugMessage("%c is %scorrect! You now have %d point%s.", answer, !correct ? "not " : "", this.quiz.retrieveScore(), this.quiz.retrieveScore() == 1 ? "" : "s");
 
 		// Load next question
-		this.chrome.setFeedbackText(Utilities.choose(correct ? positive : negative)); // Choose and display random feedback message (positive for right answers, negative otherwise)
-		this.chrome.setScoreBoard(String.format("%d/%d (%.2f%%)", this.quiz.retrieveScore(), this.quiz.numQuestions(), 100.0f*this.quiz.retrieveScore()/this.quiz.numQuestions()));
-		R.play(correct ? R.DING : R.STRANGLE);
-		this.loadQuestion();
+		this.chrome.setFeedbackText(Utilities.choose(correct ? positive : negative)); 			// Choose and display random feedback message
+		this.chrome.setScoreBoard(String.format("%d/%d (%.2f%%)", 	this.quiz.retrieveScore(), 	// Current score
+																	this.quiz.numQuestions(),	// Total number of questions
+																	100.0f*this.quiz.retrieveScore()/this.quiz.numQuestions())); // Accuracy (percent)
+
+		R.play(correct ? R.DING : R.STRANGLE);	// Play feedback sound
+		this.loadQuestion();					// Load next question
+
 	}
 
 
 	public void loadQuestion() {
 		// Loads the current question into the view (GUI)
-		// this.quiz.currentQuestion().play();
 		R.play(this.quiz.currentQuestion().mediaID, true);
 		this.chrome.ask(this.quiz.currentQuestion(), this.quiz.currentIndex()+1);
 	}
